@@ -144,7 +144,8 @@ handleGhcPackagePath = do
     case lookup "GHC_PACKAGE_PATH" env of
         Nothing -> return ([], Nothing)
         Just gpp -> do
-            let opts = "--package-db=clear"
+            let opts = "--no-require-sandbox"
+                     : "--package-db=clear"
                      : "--package-db=global"
                      : map ("--package-db=" ++)
                        (drop 1 $ reverse $ splitSearchPath gpp)
